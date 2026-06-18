@@ -3,21 +3,33 @@ package com.diary.backend.security;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.security.Keys;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
 import javax.crypto.SecretKey;
 import java.nio.charset.StandardCharsets;
+import java.util.Base64;
 import java.util.Date;
 import java.util.function.Function;
 
 @Component
 public class JwtUtil {
 
-    private final String SECRET_KEY_STRING = "9a4f2c8d3e7b6a5c1d2e3f4a5b6c7d8e9f0a1b2c3d4e5f6a7b8c9d0e1f2a3b4c";
-    private final SecretKey SECRET_KEY = Keys.hmacShaKeyFor(SECRET_KEY_STRING.getBytes(StandardCharsets.UTF_8));
-    
-    // 24 hours expiration
-    private final long EXPIRATION_TIME = 1000 * 60 * 60 * 24;
+    private final SecretKey SECRET_KEY;
+    private final long EXPIRATION_TIME;
+
+    public JwtUtil(
+            @Value("${jwt.secret}") String secret,
+            @Value("${jwt.expiration}") long expiration) {
+        byte[] keyBytes = secret.getBytes(StandardCharsets.UTF_8);
+        if (keyBytes.length < 32) {
+            byte[] padded = new byte[32];
+            System.arraycopy(keyBytes, 0, padded, 0, Math.min(keyBytes.length, 32));
+            keyBytes = padded;
+        }
+        this.SECRET_KEY = Keys.hmacShaKeyFor(keyBytes);
+        this.EXPIRATION_TIME = expiration;
+    }
 
     public String generateToken(String username) {
         return Jwts.builder()

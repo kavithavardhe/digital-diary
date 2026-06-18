@@ -39,7 +39,8 @@ const Register = () => {
         navigate('/login');
       }, 2000);
     } catch (err) {
-      setError(err.response?.data || 'Failed to register. Username might already exist.');
+      const msg = err.response?.data;
+      setError(typeof msg === 'string' ? msg : 'Failed to register. Username might already exist.');
     } finally {
       setLoading(false);
     }

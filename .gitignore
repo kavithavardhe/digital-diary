@@ -1,0 +1,17 @@
+# H2 Database files
+backend/data/
+*.mv.db
+*.trace.db
+
+# Environment files
+.env
+backend/.env
+
+# IDE
+.idea/
+.vscode/
+*.iml
+
+# OS
+.DS_Store
+Thumbs.db

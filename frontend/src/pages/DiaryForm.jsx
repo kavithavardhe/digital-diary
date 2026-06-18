@@ -57,7 +57,8 @@ const DiaryForm = () => {
       }
       navigate('/entries');
     } catch (err) {
-      setError(err.response?.data?.message || 'Failed to save diary entry. Please try again.');
+      const msg = err.response?.data;
+      setError(typeof msg === 'string' ? msg : 'Failed to save diary entry. Please try again.');
     } finally {
       setLoading(false);
     }
