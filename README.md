@@ -96,7 +96,7 @@ VITE_API_URL=https://your-backend-url.com
 | `JWT_SECRET` | (auto-generated) | JWT signing key |
 | `JWT_EXPIRATION` | `86400000` | Token expiry (ms) |
 | `SERVER_PORT` | `8080` | Server port |
-| `VITE_API_URL` | `http://localhost:8080` | Backend API URL |
+| `VITE_API_URL` | `` (empty) | Backend API URL (blank = Vite proxy in dev, set for production) |
 
 ---
 
