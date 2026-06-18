@@ -40,7 +40,7 @@ const Register = () => {
       }, 2000);
     } catch (err) {
       const msg = err.response?.data;
-      setError(typeof msg === 'string' ? msg : 'Failed to register. Username might already exist.');
+      setError(typeof msg === 'string' ? msg : (err.message || 'Failed to register. Please try again.'));
     } finally {
       setLoading(false);
     }

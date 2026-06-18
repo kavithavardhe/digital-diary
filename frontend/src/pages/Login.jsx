@@ -30,7 +30,7 @@ const Login = () => {
       navigate('/entries');
     } catch (err) {
       const msg = err.response?.data;
-      setError(typeof msg === 'string' ? msg : 'Invalid username or password. Please try again.');
+      setError(typeof msg === 'string' ? msg : (err.message || 'Invalid username or password. Please try again.'));
     } finally {
       setLoading(false);
     }
